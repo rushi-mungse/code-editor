@@ -146,6 +146,7 @@ a:hover {
 }
 
 .editPageHeading {
+  color: #0aff00;
   text-align: center;
   margin-bottom: 15px;
   border-bottom: 2px dotted green;
@@ -167,6 +168,7 @@ a:hover {
   flex-direction: column;
   width: 100px;
   height: auto;
+  cursor: pointer;
 }
 
 .username {
@@ -196,4 +198,5 @@ a:hover {
   font-size: 20px;
   line-height: 1.6;
   padding-top: 20px;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
 }

@@ -1,13 +1,19 @@
 import { useState } from "react";
 import Client from "../Components/Client";
 import Editor from "../Components/Editor";
-
+import toast from "react-hot-toast";
 const EditorPage = () => {
   const [clients, setClients] = useState([
-    { socketId: 1, username: "Rushikesh M" },
+    { socketId: 1, username: "Rushikesh Mahadev Mungse" },
     { socketId: 2, username: "Rahul B" },
     { socketId: 3, username: "Hari M" },
   ]);
+
+  const hover = (user) => {
+    return toast.success(`${user}`, {
+      position: "top-right",
+    });
+  };
 
   return (
     <div className="editorPageWrapper">
@@ -18,7 +24,15 @@ const EditorPage = () => {
           <div className="userAvatars">
             {clients.map((client) => {
               return (
-                <Client username={client.username} key={client.socketId} />
+                <Client
+                  onMouseHover={() => hover(client.username)}
+                  username={
+                    client.username.length > 8
+                      ? `${client.username.slice(0, 8)}... `
+                      : client.username
+                  }
+                  key={client.socketId}
+                />
               );
             })}
           </div>

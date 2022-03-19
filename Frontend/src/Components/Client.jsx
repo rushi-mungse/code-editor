@@ -1,10 +1,10 @@
 import Avatar from "react-avatar";
 
-const Client = ({ username }) => {
+const Client = ({ username, onMouseHover }) => {
   return (
-    <div className="flexStyle avatar">
+    <div className="flexStyle avatar" onMouseEnter={onMouseHover}>
       <Avatar name={username} size={50} round="14px" />
-      <sapn className="username">{username}</sapn>
+      <span className="username">{username}</span>
     </div>
   );
 };
