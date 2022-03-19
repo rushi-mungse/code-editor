@@ -1,5 +1,6 @@
 import { useState } from "react";
 import Client from "../Components/Client";
+import Editor from "../Components/Editor";
 
 const EditorPage = () => {
   const [clients, setClients] = useState([
@@ -27,7 +28,9 @@ const EditorPage = () => {
           <button className="btn leaveBtn">Leave Room</button>
         </div>
       </div>
-      <div className="rightSide">Editor is here</div>
+      <div className="rightSide">
+        <Editor />
+      </div>
     </div>
   );
 };
