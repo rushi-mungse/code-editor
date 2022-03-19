@@ -21,6 +21,7 @@ const Home = () => {
         position: "top-right",
       });
     }
+
     navigate(`/editor/${roomId}`);
     return toast.success("You entering in room.", {
       position: "top-right",

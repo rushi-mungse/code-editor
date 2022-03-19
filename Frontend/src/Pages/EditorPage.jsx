@@ -1,19 +1,42 @@
-import { useState } from "react";
+import { useRef, useState, useEffect } from "react";
 import Client from "../Components/Client";
 import Editor from "../Components/Editor";
 import toast from "react-hot-toast";
+import { initSocket } from "../socket";
+import { useNavigate } from "react-router-dom";
+
 const EditorPage = () => {
+  const socketRef = useRef(null);
+  const reactNavigator = useNavigate();
+
   const [clients, setClients] = useState([
-    { socketId: 1, username: "Rushikesh Mahadev Mungse" },
+    { socketId: 1, username: "Rushikesh Mungse" },
     { socketId: 2, username: "Rahul B" },
     { socketId: 3, username: "Hari M" },
   ]);
 
-  const hover = (user) => {
+  const hoverInUsers = (user) => {
     return toast.success(`${user}`, {
       position: "top-right",
     });
   };
+
+  useEffect(() => {
+    const init = async () => {
+      socketRef.current = await initSocket();
+      socketRef.current.on("connect_error", (err) => handleErrors(err));
+      socketRef.current.on("connect_failed", (err) => handleErrors(err));
+
+      function handleErrors(e) {
+        console.log("socket error", e);
+        toast.error("Socket connection failed, try again later.", {
+          position: "top-right",
+        });
+        return reactNavigator("/");
+      }
+    };
+    init();
+  }, []);
 
   return (
     <div className="editorPageWrapper">
@@ -25,7 +48,7 @@ const EditorPage = () => {
             {clients.map((client) => {
               return (
                 <Client
-                  onMouseHover={() => hover(client.username)}
+                  onMouseHover={() => hoverInUsers(client.username)}
                   username={
                     client.username.length > 8
                       ? `${client.username.slice(0, 8)}... `
