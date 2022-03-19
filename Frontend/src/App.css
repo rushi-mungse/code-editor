@@ -1,0 +1,79 @@
+@import url("https://fonts.googleapis.com/css2?family=Inspiration&display=swap");
+
+.flexStyle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.homePageWrapper {
+  height: 100vh;
+  flex-direction: column;
+  position: relative;
+}
+
+.formWrapper {
+  flex-direction: column;
+  align-items: initial;
+  padding: 50px;
+  border-radius: 30px;
+  border: 2px solid black;
+  -webkit-box-shadow: 0px 0px 16px 1px rgba(0, 0, 0, 0.75);
+  -moz-box-shadow: 0px 0px 16px 1px rgba(0, 0, 0, 0.75);
+  box-shadow: 0px 0px 16px 1px rgba(0, 0, 0, 0.75);
+}
+
+.heading {
+  font-family: "Inspiration", cursive;
+  color: blue;
+  font-size: 40px;
+  font-weight: bold;
+}
+
+.mainLabel {
+  margin-top: 10px;
+  font-size: 18px;
+  font-weight: 500;
+}
+
+.inputTag {
+  padding: 7px 10px;
+  outline: none;
+  border: 1px dotted green;
+  border-radius: 10px;
+  margin: 10px 0;
+  background-color: #f1a9da;
+}
+
+.inputTag::placeholder {
+  color: #000;
+}
+
+.btn {
+  width: 100px;
+  border-radius: 5px;
+  outline: none;
+  cursor: pointer;
+  border: none;
+  color: #fff;
+  padding: 5px 5px;
+}
+.btnJoin {
+  background-color: rgb(10, 112, 195);
+  transition: all 0.3s ease-in-out;
+  margin: 10px auto;
+  font-weight: bold;
+}
+
+.btnJoin:hover {
+  background-color: rgb(14, 67, 211);
+}
+
+.footer {
+  position: absolute;
+  bottom: 10px;
+}
+
+a {
+  color: blue;
+}
