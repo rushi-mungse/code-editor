@@ -61,7 +61,9 @@
 .btnJoin {
   background-color: rgb(10, 112, 195);
   transition: all 0.3s ease-in-out;
-  margin: 10px auto;
+  margin-left: auto;
+  margin-top: 10px;
+  margin-bottom: 20px;
   font-weight: bold;
 }
 
