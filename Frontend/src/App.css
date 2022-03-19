@@ -58,6 +58,7 @@
   color: #fff;
   padding: 5px 5px;
 }
+
 .btnJoin {
   background-color: rgb(10, 112, 195);
   transition: all 0.3s ease-in-out;
@@ -78,6 +79,11 @@
 
 a {
   color: blue;
+  transition: all 0.3s ease-in-out;
+}
+
+a:hover {
+  color: rgb(0, 0, 158);
 }
 
 @media only screen and (max-width: 500px) {
