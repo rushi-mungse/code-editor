@@ -22,7 +22,11 @@ const Home = () => {
       });
     }
 
-    navigate(`/editor/${roomId}`);
+    navigate(`/editor/${roomId}`, {
+      state: {
+        username,
+      },
+    });
     return toast.success("You entering in room.", {
       position: "top-right",
     });

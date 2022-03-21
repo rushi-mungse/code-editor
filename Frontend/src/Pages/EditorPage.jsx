@@ -3,20 +3,24 @@ import Client from "../Components/Client";
 import Editor from "../Components/Editor";
 import toast from "react-hot-toast";
 import { initSocket } from "../socket";
-import { useNavigate } from "react-router-dom";
+import {
+  useNavigate,
+  useParams,
+  useLocation,
+  Navigate,
+} from "react-router-dom";
+import { JOIN, JOINED } from "../actions";
 
 const EditorPage = () => {
   const socketRef = useRef(null);
   const reactNavigator = useNavigate();
+  const { id: roomId } = useParams();
+  const location = useLocation();
 
-  const [clients, setClients] = useState([
-    { socketId: 1, username: "Rushikesh Mungse" },
-    { socketId: 2, username: "Rahul B" },
-    { socketId: 3, username: "Hari M" },
-  ]);
+  const [clients, setClients] = useState([]);
 
   const hoverInUsers = (user) => {
-    return toast.success(`${user}`, {
+    return toast.success(`Full Name : ${user}`, {
       position: "top-right",
     });
   };
@@ -34,9 +38,30 @@ const EditorPage = () => {
         });
         return reactNavigator("/");
       }
+
+      socketRef.current.emit(JOIN, {
+        roomId,
+        username: location.state?.username,
+      });
+
+      socketRef.current.on(JOINED, ({ socketId, username, clients }) => {
+        console.log(username, clients);
+        if (username !== location.state?.username) {
+          toast.success(`${username} joined the room.`, {
+            position: "top-right",
+          });
+          console.log(`${username} joined`);
+        }
+
+        setClients(clients);
+      });
     };
     init();
   }, []);
+
+  if (!location.state) {
+    return <Navigate to="/" />;
+  }
 
   return (
     <div className="editorPageWrapper">
