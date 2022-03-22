@@ -2,7 +2,7 @@ const express = require("express");
 const app = express();
 const http = require("http");
 const { Server } = require("socket.io");
-const { JOIN, JOINED } = require("./src/actions");
+const { JOIN, JOINED, DISCONNECTED } = require("./src/actions");
 const httpServer = http.createServer(app);
 const io = new Server(httpServer);
 
@@ -32,6 +32,14 @@ io.on("connection", (socket) => {
 
   socket.on("disconnecting", () => {
     const rooms = [...socket.rooms];
+    rooms.forEach((roomId) => {
+      socket.in(roomId).emit(DISCONNECTED, {
+        socketId: socket.id,
+        username: userSocketMap[socket.id],
+      });
+    });
+    delete userSocketMap[socket.id];
+    socket.leave();
   });
 });
 

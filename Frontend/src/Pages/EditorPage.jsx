@@ -9,7 +9,7 @@ import {
   useLocation,
   Navigate,
 } from "react-router-dom";
-import { JOIN, JOINED } from "../actions";
+import { DISCONNECTED, JOIN, JOINED } from "../actions";
 
 const EditorPage = () => {
   const socketRef = useRef(null);
@@ -52,11 +52,22 @@ const EditorPage = () => {
           });
           console.log(`${username} joined`);
         }
-
         setClients(clients);
+      });
+
+      socketRef.current.on(DISCONNECTED, ({ socketId, username }) => {
+        toast.success(`${username} left the room`, { position: "top-right" });
+        setClients((prev) => {
+          return prev.filter((client) => client.socketId !== socketId);
+        });
       });
     };
     init();
+    return () => {
+      socketRef.current.disconnect();
+      socketRef.current.off(JOINED);
+      socketRef.current.off(DISCONNECTED);
+    };
   }, []);
 
   if (!location.state) {
@@ -68,7 +79,7 @@ const EditorPage = () => {
       <div className="leftSide">
         <div className="innerSide">
           <h1 className="heading editPageHeading">Code Editor</h1>
-          <h1 className="userConnected">Connected users</h1>
+          <h1 className="userConnected">Connected </h1>
           <div className="userAvatars">
             {clients.map((client) => {
               return (
