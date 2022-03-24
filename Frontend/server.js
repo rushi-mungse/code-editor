@@ -2,7 +2,13 @@ const express = require("express");
 const app = express();
 const http = require("http");
 const { Server } = require("socket.io");
-const { JOIN, JOINED, DISCONNECTED } = require("./src/actions");
+const {
+  JOIN,
+  JOINED,
+  DISCONNECTED,
+  CODE_CHANGE,
+  CODE_SYNC,
+} = require("./src/actions");
 const httpServer = http.createServer(app);
 const io = new Server(httpServer);
 
@@ -20,14 +26,24 @@ io.on("connection", (socket) => {
   socket.on(JOIN, ({ roomId, username }) => {
     userSocketMap[socket.id] = username;
     socket.join(roomId);
+
     const clients = getAllClientsInRoom(roomId);
+
     clients.forEach(({ socketId }) => {
       io.to(socketId).emit(JOINED, {
-        socketId,
+        socketId: socket.id,
         username: userSocketMap[socket.id],
         clients,
       });
     });
+  });
+
+  socket.on(CODE_CHANGE, ({ roomId, code }) => {
+    socket.in(roomId).emit(CODE_CHANGE, { code });
+  });
+
+  socket.on(CODE_SYNC, ({ code, socketId }) => {
+    io.to(socketId).emit(CODE_CHANGE, { code });
   });
 
   socket.on("disconnecting", () => {
@@ -38,6 +54,7 @@ io.on("connection", (socket) => {
         username: userSocketMap[socket.id],
       });
     });
+
     delete userSocketMap[socket.id];
     socket.leave();
   });

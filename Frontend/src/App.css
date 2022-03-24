@@ -162,6 +162,8 @@ a:hover {
   display: flex;
   flex-wrap: wrap;
   gap: 10px;
+  align-items: center;
+  justify-content: center;
 }
 
 .avatar {
@@ -181,7 +183,6 @@ a:hover {
   align-items: center;
   justify-content: center;
   flex-direction: column;
-  width: 100%;
 }
 
 .leaveBtn {
@@ -199,4 +200,58 @@ a:hover {
   line-height: 1.6;
   padding-top: 20px;
   font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+@media only screen and (max-width: 550px) {
+  .editorPageWrapper {
+    display: block;
+  }
+
+  .userAvatars {
+    padding-bottom: 20px;
+  }
+
+  .btn {
+    width: 40%;
+  }
+
+  .btns {
+    flex-direction: row;
+  }
+
+  .leaveBtn {
+    margin-top: 0 !important;
+    margin-bottom: 0 !important;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+}
+
+@media only screen and (max-width: 350px) {
+  .btns {
+    width: 100%;
+  }
+
+  .leaveBtn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+}
+
+@media only screen and (max-width: 325px) {
+  .btns {
+    flex-direction: column;
+  }
+
+  .copyBtn {
+    width: 100%;
+  }
+
+  .leaveBtn {
+    margin: 0 !important;
+    margin-top: 20px !important;
+    width: 100%;
+  }
 }
